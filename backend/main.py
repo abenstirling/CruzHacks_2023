@@ -43,8 +43,12 @@ async def get_recipe(id: str):
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 
-@app.post("/recipe", response_model=RecipeModel)
+@app.post("/recipe")
 async def create_recipe_helper(body: dict = Body(...)):
+    # Search for exisitng username
+    if (_ := await db["recipes"].find_one({"url": body["url"]})) is not None:
+        raise HTTPException(status_code=404, detail="Recipe already exists")
+
     await create_recipe(db, body["url"])
     return
 

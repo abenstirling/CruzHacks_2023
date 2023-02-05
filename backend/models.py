@@ -1,3 +1,6 @@
+from enum import Enum
+from typing import Optional
+
 from pydantic import BaseModel, Field
 from bson import ObjectId
 
@@ -45,6 +48,23 @@ class ShoppingListItemModel(BaseModel):
         json_encoders = {ObjectId: str}
 
 
+class NutritionQuantity(BaseModel):
+    amount: int = Field(...)
+    unit: int = Field(...)
+
+
+class NutritionModel(BaseModel):
+    calories: int = Field(...)
+    carbohydrateContent: Optional[NutritionQuantity] = Field(...)
+    cholesterolContent: Optional[NutritionQuantity] = Field(...)
+    fiberContent: Optional[NutritionQuantity] = Field(...)
+    proteinContent: Optional[NutritionQuantity] = Field(...)
+    sodiumContent: Optional[NutritionQuantity] = Field(...)
+    saturatedFatContent: Optional[NutritionQuantity] = Field(...)
+    unsaturatedFatContent: Optional[NutritionQuantity] = Field(...)
+    fatContent: Optional[NutritionQuantity] = Field(...)
+
+
 class RecipeModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     title: str = Field(...)
@@ -52,9 +72,10 @@ class RecipeModel(BaseModel):
     image: str = Field(...)
     ingredients: list[IngredientModel] = Field(...)
     instructions: list[str] = Field(...)
-    cook_time: int = Field(...)  # minutes
+    cook_time: Optional[int] = Field(...)  # minutes
     author: str = Field(...)
     yields: str = Field(...)
+    nutrition: NutritionModel
 
     class Config:
         allow_population_by_field_name = True

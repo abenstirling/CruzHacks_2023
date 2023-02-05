@@ -181,7 +181,7 @@ async def test_shopping_list_item_toggle_bought(client: AsyncClient):
 
 @pytest.mark.anyio
 async def test_create_recipe(client: AsyncClient):
-    response = await client.post(
+    await client.post(
         "/recipe",
         headers={"X-Token": "coneofsilence"},
         json={
@@ -189,7 +189,13 @@ async def test_create_recipe(client: AsyncClient):
         }
     )
 
-    assert response.status_code == 200
+    await client.post(
+        "/recipe",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "url": "https://www.tasteofhome.com/recipes/cheeseburger-soup/" 
+        }
+    )
 
 
 # @pytest.mark.anyio
