@@ -8,7 +8,7 @@ html = response.text
 soup = BeautifulSoup(html, "html.parser")
 text = soup.get_text()
 
-openai.api_key = ""
+openai.api_key = "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"
 
 question = "Extract only the ingredients from the following text: \n" + text
 

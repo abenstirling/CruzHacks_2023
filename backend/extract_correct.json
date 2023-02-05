@@ -1,0 +1,32 @@
+{
+   "egg": {
+      "quantity": 2.0,
+      "unit": "whole",
+      "qualifiers": ["large"]
+   },
+   "sea salt": {
+      "quantity": 1.0,
+      "unit": "pinch",
+      "qualifiers": ["fine"]
+   },
+   "butter": {
+      "quantity": 0.5,
+      "unit": "tbsp",
+      "qualifiers": ["unsalted"]
+   },
+   "sweet potatoes": {
+      "quantity": 3.0,
+      "unit": "none",
+      "qualifiers": []
+   },
+   "mozzarella": {
+      "quantity": 0.25,
+      "unit": "cup",
+      "qualifiers": ["shredded", "low moisture", "part-skim"]
+   },
+   "chives": {
+      "quantity": 6.0,
+      "unit": "none",
+      "qualifiers": []
+   }
+}
