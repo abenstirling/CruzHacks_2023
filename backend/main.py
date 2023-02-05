@@ -3,7 +3,9 @@ from fastapi import FastAPI, Body, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import motor.motor_asyncio
+
 from models import UserModel, RecipeModel
+from utils import create_recipe
 
 app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
@@ -41,14 +43,11 @@ async def get_recipe(id: str):
 
 @app.put("/recipe/{url}",response_model=RecipeModel)
 async def create_recipe_helper(url: str):
-    recipe = create_recipe(db, url)
-
+    recipe = await create_recipe(db, url)
+    return recipe
 
 
 @app.get("/shopping_list/", response_model=RecipeModel)
 async def get_ingredients():
     ingredients = await db["shopping"].find()
     return list(ingredients)
-
-
-

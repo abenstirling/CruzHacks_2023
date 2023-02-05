@@ -35,12 +35,23 @@ class IngredientModel(BaseModel):
     qualifiers: list[str] = Field(...)
 
 
+class ShoppingListItemModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    ingredient: IngredientModel = Field(...)
+    is_bought: bool = Field(...)
+
+    class Config:
+        allow_population_by_field_name = True
+        json_encoders = {ObjectId: str}
+
+
 class RecipeModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     title: str = Field(...)
     url: str = Field(...)
+    image: str = Field(...)
     ingredients: list[IngredientModel] = Field(...)
-    steps: list[str] = Field(...)
+    instructions: list[str] = Field(...)
     cook_time: int = Field(...)  # minutes
     author: str = Field(...)
     yields: str = Field(...)

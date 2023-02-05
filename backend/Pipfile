@@ -9,6 +9,7 @@ pymongo = "*"
 motor = "*"
 pydantic = "*"
 email-validator = "*"
+recipe-scrapers = "*"
 
 [dev-packages]
 uvicorn = "*"
