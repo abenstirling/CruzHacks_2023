@@ -13,6 +13,8 @@ email-validator = "*"
 [dev-packages]
 uvicorn = "*"
 pytest = "*"
+httpx = "*"
+trio = "*"
 
 [requires]
 python_version = "3.10"
