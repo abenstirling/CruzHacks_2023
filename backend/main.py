@@ -1,10 +1,12 @@
 import os
+
+from bson import ObjectId
 from fastapi import FastAPI, Body, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import motor.motor_asyncio
 
-from models import UserModel, RecipeModel
+from models import UserModel, RecipeModel, ShoppingListItemModel
 from utils import create_recipe
 
 app = FastAPI()
@@ -41,13 +43,28 @@ async def get_recipe(id: str):
     raise HTTPException(status_code=404, detail="Recipe not found")
 
 
-@app.put("/recipe/{url}",response_model=RecipeModel)
-async def create_recipe_helper(url: str):
-    recipe = await create_recipe(db, url)
-    return recipe
+@app.post("/recipe", response_model=RecipeModel)
+async def create_recipe_helper(body: dict = Body(...)):
+    await create_recipe(db, body["url"])
+    return
 
 
-@app.get("/shopping_list/", response_model=RecipeModel)
+@app.put("/shopping_list/{item_id}/{is_bought}")
+async def shopping_list_item_toggle_bought(item_id: str, is_bought: str):
+    is_bought_bool = False
+    if is_bought == "true":
+        is_bought_bool = True
+    elif is_bought != "false":
+        raise HTTPException(status_code=404, detail="is_bought must be true or false")
+
+    if (item := await db["shopping"].find_one({"_id": ObjectId(item_id)})) is not None:
+        await db["shopping"].update_one(item, {"$set": {"is_bought": is_bought_bool}})
+        return
+
+    raise HTTPException(status_code=404, detail="Shopping list item not found")
+
+
+@app.get("/shopping_list/", response_model=list[ShoppingListItemModel])
 async def get_ingredients():
-    ingredients = await db["shopping"].find()
-    return list(ingredients)
+    ingredients = await db["shopping"].find().to_list(1000)
+    return ingredients

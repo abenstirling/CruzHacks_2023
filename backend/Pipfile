@@ -10,6 +10,7 @@ motor = "*"
 pydantic = "*"
 email-validator = "*"
 recipe-scrapers = "*"
+openai = "*"
 
 [dev-packages]
 uvicorn = "*"

@@ -3,10 +3,10 @@ import openai
 import json
 
 # Open AI Key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
-def parse_menu(url):
+async def parse_menu(url):
     # Grabbing link for recipe
     scraper = scrape_me(url)
 
@@ -33,7 +33,7 @@ def parse_menu(url):
     print(question)
 
     # Asking question
-    response = openai.Completion.create(model="text-davinci-003", prompt=question, temperature=0, max_tokens=3000)
+    response = await openai.Completion.acreate(model="text-davinci-003", prompt=question, temperature=0, max_tokens=3000)
     # Printing question
     print(response["choices"][0]["text"])
     return response["choices"][0]["text"]
