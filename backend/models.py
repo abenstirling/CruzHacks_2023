@@ -26,3 +26,25 @@ class UserModel(BaseModel):
     class Config:
         allow_population_by_field_name = True
         json_encoders = {ObjectId: str}
+
+
+class IngredientModel(BaseModel):
+    name: str = Field(...)
+    quantity: float = Field(...)
+    unit: str = Field(...)
+    qualifiers: list[str] = Field(...)
+
+
+class RecipeModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    title: str = Field(...)
+    url: str = Field(...)
+    ingredients: list[IngredientModel] = Field(...)
+    steps: list[str] = Field(...)
+    cook_time: int = Field(...)  # minutes
+    author: str = Field(...)
+    yields: str = Field(...)
+
+    class Config:
+        allow_population_by_field_name = True
+        json_encoders = {ObjectId: str}
