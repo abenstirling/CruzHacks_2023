@@ -1,32 +1,40 @@
 {
-   "egg": {
-      "quantity": 2.0,
-      "unit": "whole",
-      "qualifiers": ["large"]
-   },
-   "sea salt": {
-      "quantity": 1.0,
-      "unit": "pinch",
-      "qualifiers": ["fine"]
-   },
-   "butter": {
-      "quantity": 0.5,
-      "unit": "tbsp",
-      "qualifiers": ["unsalted"]
-   },
-   "sweet potatoes": {
-      "quantity": 3.0,
-      "unit": "none",
-      "qualifiers": []
-   },
-   "mozzarella": {
-      "quantity": 0.25,
-      "unit": "cup",
-      "qualifiers": ["shredded", "low moisture", "part-skim"]
-   },
-   "chives": {
-      "quantity": 6.0,
-      "unit": "none",
-      "qualifiers": []
-   }
+   "ingredients": [
+      {
+         "name": "egg",
+         "quantity": 2.0,
+         "unit": "none",
+         "qualifiers": ["large"]
+      },
+      {
+         "name": "sea salt",
+         "quantity": 1.0,
+         "unit": "pinch",
+         "qualifiers": ["fine"]
+      },
+      {
+         "name": "butter",
+         "quantity": 0.5,
+         "unit": "tbsp",
+         "qualifiers": ["unsalted"]
+      },
+      {
+         "name": "sweet potatoes",
+         "quantity": 3.0,
+         "unit": "none",
+         "qualifiers": []
+      },
+      {
+         "name": "mozzarella",
+         "quantity": 0.25,
+         "unit": "cup",
+         "qualifiers": ["shredded", "low moisture", "part-skim"]
+      },
+      {
+         "name": "chives",
+         "quantity": 6.0,
+         "unit": "none",
+         "qualifiers": []
+      }
+   ]
 }

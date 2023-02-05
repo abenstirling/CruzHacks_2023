@@ -2,8 +2,9 @@ from recipe_scrapers import scrape_me
 import openai
 import json
 
-#Open AI Key
-openai.api_key = ""
+# Open AI Key
+openai.api_key = "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"
+
 
 def parse_menu(url):
     #Grabbing link for recipe
@@ -23,8 +24,11 @@ def parse_menu(url):
         extract_correct = json.load(file)
         print("CORRECT JSON --> \n" + json.dumps(extract_correct))
 
-    #Forming question
-    question = pre_question + ref_formatted + "\n and I will produce the following JSON output: \n" + json.dumps(extract_correct) + "\n and my new input is: \n" + scraper_formatted
+    # Forming question
+    interlude = "\n and I will produce the following JSON output: \n"
+    new_output = "\n and my new input is: \n"
+    question = f"{pre_question} ```\n{ref_formatted}\n``` {interlude} ```\n{json.dumps(extract_correct)}\n``` " \
+               f"{new_output} ```\n{scraper_formatted}\n```"
     print(question)
 
     #Asking question
