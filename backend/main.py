@@ -38,3 +38,17 @@ async def get_recipe(id: str):
 
     raise HTTPException(status_code=404, detail="Recipe not found")
 
+
+@app.put("/recipe/{url}",response_model=RecipeModel)
+async def create_recipe_helper(url: str):
+    recipe = create_recipe(db, url)
+
+
+
+@app.get("/shopping_list/", response_model=RecipeModel)
+async def get_ingredients():
+    ingredients = await db["shopping"].find()
+    return list(ingredients)
+
+
+
