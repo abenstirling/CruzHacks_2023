@@ -3,7 +3,7 @@ from fastapi import FastAPI, Body, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import motor.motor_asyncio
-from models import UserModel
+from models import UserModel, RecipeModel
 
 app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
@@ -29,3 +29,12 @@ async def login_user(user: UserModel = Body(...)):
         return db_user
     else:
         raise HTTPException(status_code=404, detail=f"User {user.userName} not found or password doesn't match")
+
+
+@app.post("/recipe/{id}", response_model=RecipeModel)
+async def get_recipe(id: str):
+    if (recipe := await db["recipes"].find_one({"_id": id})) is not None:
+        return recipe
+
+    raise HTTPException(status_code=404, detail="Recipe not found")
+
